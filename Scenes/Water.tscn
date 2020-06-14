@@ -1,0 +1,55 @@
+[gd_scene load_steps=8 format=2]
+
+[ext_resource path="res://Sprites/Sprite-0003-Sheet.png" type="Texture" id=1]
+[ext_resource path="res://Scripts/Water.gd" type="Script" id=2]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 51.3684, 8.24888 )
+
+[sub_resource type="Animation" id=2]
+resource_name = "still_water"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.7, 1.5 ),
+"transitions": PoolRealArray( 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2 ]
+}
+
+[sub_resource type="AnimationNodeAnimation" id=3]
+animation = "still_water"
+
+[sub_resource type="AnimationNodeStateMachine" id=4]
+states/still_water/node = SubResource( 3 )
+states/still_water/position = Vector2( 575, 153 )
+
+[sub_resource type="AnimationNodeStateMachinePlayback" id=5]
+
+[node name="Water" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 0.395305, -4.74335 )
+scale = Vector2( 3.67637, 2.49877 )
+texture = ExtResource( 1 )
+hframes = 3
+frame = 1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/still_water = SubResource( 2 )
+
+[node name="AnimationTree" type="AnimationTree" parent="."]
+tree_root = SubResource( 4 )
+anim_player = NodePath("../AnimationPlayer")
+active = true
+parameters/playback = SubResource( 5 )
