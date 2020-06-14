@@ -43,7 +43,6 @@ position = Vector2( 0.395305, -4.74335 )
 scale = Vector2( 3.67637, 2.49877 )
 texture = ExtResource( 1 )
 hframes = 3
-frame = 1
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/still_water = SubResource( 2 )
@@ -53,3 +52,4 @@ tree_root = SubResource( 4 )
 anim_player = NodePath("../AnimationPlayer")
 active = true
 parameters/playback = SubResource( 5 )
+[connection signal="body_entered" from="." to="." method="_on_Water_body_entered"]
